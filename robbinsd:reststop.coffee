@@ -1,2 +1,2 @@
 RestStop =
-    addRoutes = -> "Routes Added"
+    addRoutes: (collection) -> "Routes Added"
