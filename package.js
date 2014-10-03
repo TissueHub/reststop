@@ -1,16 +1,23 @@
 Package.describe({
-  summary: " \* Fill me in! *\ ",
-  version: "1.0.0",
-  git: " \* Fill me in! *\ "
+    summary: "Adds a default RESTful interface for your collections.",
+    version: "0.1.0",
+    git: "https://github.com/TissueHub/reststop.git"
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('METEOR@0.9.3.1');
-  api.addFiles('robbinsd:reststop.js');
+
+ // Dependencies
+    api.versionsFrom('METEOR@0.9.3.1');
+    api.use(["standard-app-packages", "coffeescript", "iron:router"]);
+
+ // Package Exports and Files
+    if (api.export) api.export("RestStop");
+    api.addFiles('robbinsd:reststop.coffee');
 });
 
 Package.onTest(function(api) {
-  api.use('tinytest');
-  api.use('robbinsd:reststop');
-  api.addFiles('robbinsd:reststop-tests.js');
+    api.use(["standard-app-packages", "coffeescript", "iron:router"], "server");
+    api.use('tinytest', "server");
+    api.use('robbinsd:reststop', "server");
+    api.addFiles('robbinsd:reststop-tests.coffee');
 });
