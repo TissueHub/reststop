@@ -11,3 +11,16 @@ Tinytest.add "RestStop is exported", (test) ->
 
 Tinytest.add "addRoutes is a function", (test) ->
     test.equal typeof RestStop.addRoutes, "function"
+
+Tinytest.add "addRoutes adds routes given a collection", (test) ->
+    Dogs = new Meteor.Collection "dogs"
+    calls = []
+    originalFind = Dogs.find
+    Dogs.find = ->
+        calls.push thisArg: @, args: arguments
+    # Add the routes
+    RestStop.addRoutes Dogs
+
+    test.equal Router.routes.length == 1, true
+    test.equal Router.routes[0].originalPath, "/dogs"
+    # Need to test running the route.
